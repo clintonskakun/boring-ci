@@ -1,0 +1,25 @@
+{
+  // Your builder environment
+  "builder": {
+    // Set resource limits based on your host machine
+    // Boring ci provisions based on how much availible resources you have
+    "cpu": 1,
+    "memory": "500M",
+    "volumes": [
+      {
+        path: "/path/to/secret/manager/key.json",
+        target: "...",
+      }
+    ],
+    "env": ["ENV=development"]
+  },
+
+  // These are your pipeline steps, you can run step one after another or
+  // run them asyncronously
+
+  "steps": [
+    { "name": "step-1.sh" }, // runs at start
+    { "name": "step-2.sh", "waitFor": "step-1.sh" }, // Waits for step-1 to finish before running
+    { "name": "step-3.sh", "timeout": 10 } // runs at start, times out after 10 seconds
+  ]
+}
